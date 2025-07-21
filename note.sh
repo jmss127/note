@@ -19,26 +19,29 @@ DATE=$(date "+## %a %d %b %Y %R")
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" # Resolve script's directory
 NOTE="$SCRIPT_DIR/note.md"      # set note text file name
 
+# Main:
 clear
 echo "${g}** ${m}Note ${g}**${reset}"
 echo 
 
 # print date and append to file
+echo -e "# Note"
+echo
 echo -e "$DATE" >> "$NOTE"
 
 # Enter title
-read -r -p "Enter Title > " title1
+read -r -p "${g}Enter Title ${c}> ${reset}" title1
 
 # print title to note
 echo "" >> "$NOTE"
 
 echo "### $title1" >> "$NOTE"
-echo ""
-echo "Write your note or Diary entry and save with :"
-echo ""
+echo 
+echo "${g}Write your note and save with ${m}Enter"
+echo 
 
 # read input with line editor, delimiter set to :
-read -e -r -p "> " -r note1
+read -e -r -p "> " note1
 
 # append entry note1 to file
 echo "$note1" >> "$NOTE"
@@ -46,8 +49,5 @@ echo "$note1" >> "$NOTE"
 # formatting
 echo "" >> "$NOTE"                                 
 echo "---" >> "$NOTE"
-echo "" >> "$NOTE"
-
-
 exit 0
 
