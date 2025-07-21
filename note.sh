@@ -6,37 +6,48 @@
 # searchable with ctrl-f in a text editor.
 # append entries to file.
 
+# Config:
+Color Variables tput
+r=$(tput setaf 1) # Warnings/errors Red
+g=$(tput setaf 2) # Menus/info/success Green
+c=$(tput setaf 6) # Input prompts Cyan
+m=$(tput setaf 5) # Highlights Magenta
+reset=$(tput sgr0) # Reset
+
+trap 'echo -e "$reset"; exit 0' INT TERM EXIT
+DATE=$(date "+## %a %d %b %Y %R")
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" # Resolve script's directory
+NOTE="$SCRIPT_DIR/note.md"      # set note text file name
+
 clear
-echo ""
-echo "** Note **"
-echo ""
+echo "${g}** ${m}Note ${g}**${reset}"
+echo 
 
 # print date and append to file
-date "+## %a %d %b %Y %R" | tee -a ~/Nevada/Scripts/note/note.md
+echo -e "$DATE" >> "$NOTE"
 
 # Enter title
-read -p "Enter Title - " title1
+read -r -p "Enter Title > " title1
 
 # print title to note
-echo "" >> ~/Nevada/Scripts/note/note.md
+echo "" >> "$NOTE"
 
-echo "### $title1" >> ~/Nevada/Scripts/note/note.md
+echo "### $title1" >> "$NOTE"
 echo ""
 echo "Write your note or Diary entry and save with :"
 echo ""
 
 # read input with line editor, delimiter set to :
-read -e -d ":" -p "> " -r note1
+read -e -r -p "> " -r note1
 
 # append entry note1 to file
-echo "$note1" >> ~/Nevada/Scripts/note/note.md
+echo "$note1" >> "$NOTE"
 
 # formatting
-echo "" >> ~/Nevada/Scripts/note/note.md                                 
-echo "---" >> ~/Nevada/Scripts/note/note.md
-echo "" >> ~/Nevada/Scripts/note/note.md
+echo "" >> "$NOTE"                                 
+echo "---" >> "$NOTE"
+echo "" >> "$NOTE"
 
-# Use markdown to convert .md to .html
-pandoc --metadata title="note" -s -o ~/Nevada/Scripts/note/note.html ~/Nevada/Scripts/note/note.md
+
 exit 0
 
