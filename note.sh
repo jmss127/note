@@ -8,6 +8,7 @@
 # TODO: Put all echo redirects into cat. Does cat handle $VAR?
 # TODO: Use a function for repeating messages.
 # TODO: Add checking for file note .md
+# TODO: Add option -r for reading notes
 
 # Config:
 Color Variables tput
@@ -20,39 +21,31 @@ reset=$(tput sgr0) # Reset
 trap 'echo -e "$reset"; exit 0' INT TERM EXIT
 DATE=$(date "+## %a %d %b %Y %R")
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" # Resolve script's directory
-NOTE="$SCRIPT_DIR/note.md"      # set note text file name
-
-
+FILE="note.md"                  # set file name
+NOTE="$SCRIPT_DIR/$FILE"        # set note text file name
 
 # Main:
 clear
+if [ ! -f "$NOTE" ]; then
+    touch "$NOTE"
+fi
 echo "${g}** ${m}Note ${g}**${reset}"
 echo 
-
-# print date and append to file
-echo -e "$DATE  " >> "$NOTE"
-
 # Enter title
 read -r -p "${g}Enter Title ${c}> ${reset}" title1
-
-# print title to note
-echo  >> "$NOTE  "
-echo "### $title1" >> "$NOTE"
-echo 
 echo "${g}Write your note and save with ${m}Enter${reset}"
 echo 
-
 # read input with line editor
 echo -ne "$c"
 read -e -r -p "> " note1
 echo -ne "$reset"
+cat >> "$NOTE" << EOF
+"$DATE  "
+### "$title1"
 
-# append entry note1 to file
-echo "$note1" >> "$NOTE"
+"$note1"
 
-# formatting
-echo
-echo "___" >> "$NOTE"
-echo  >> "$NOTE"
+___
+
+EOF
 exit 0
-
