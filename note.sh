@@ -7,6 +7,7 @@
 # append entries to file.
 # TODO: Put all echo redirects into cat.
 # TODO: Use a function for repeating messages.
+# TODO: Add checking for file note .md
 
 # Config:
 Color Variables tput
