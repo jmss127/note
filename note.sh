@@ -25,21 +25,19 @@ echo "${g}** ${m}Note ${g}**${reset}"
 echo 
 
 # print date and append to file
-echo
-echo -e "$DATE" >> "$NOTE"
+echo -e "$DATE  " >> "$NOTE"
 
 # Enter title
 read -r -p "${g}Enter Title ${c}> ${reset}" title1
 
 # print title to note
-echo  >> "$NOTE"
-
+echo  >> "$NOTE  "
 echo "### $title1" >> "$NOTE"
 echo 
 echo "${g}Write your note and save with ${m}Enter${reset}"
 echo 
 
-# read input with line editor, delimiter set to :
+# read input with line editor
 echo -ne "$c"
 read -e -r -p "> " note1
 echo -ne "$reset"
