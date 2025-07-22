@@ -51,7 +51,8 @@ echo -ne "$reset"
 echo "$note1" >> "$NOTE"
 
 # formatting
-echo "---" >> "$NOTE"
+echo
+echo "___" >> "$NOTE"
 echo  >> "$NOTE"
 exit 0
 
