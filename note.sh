@@ -5,7 +5,7 @@
 # free form or field entries
 # searchable with ctrl-f in a text editor.
 # append entries to file.
-# TODO: Put all echo redirects into cat.
+# TODO: Put all echo redirects into cat. Does cat handle $VAR?
 # TODO: Use a function for repeating messages.
 # TODO: Add checking for file note .md
 
