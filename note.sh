@@ -5,6 +5,8 @@
 # free form or field entries
 # searchable with ctrl-f in a text editor.
 # append entries to file.
+# TODO: Put all echo redirects into cat.
+# TODO: Use a function for repeating messages.
 
 # Config:
 Color Variables tput
@@ -18,6 +20,8 @@ trap 'echo -e "$reset"; exit 0' INT TERM EXIT
 DATE=$(date "+## %a %d %b %Y %R")
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" # Resolve script's directory
 NOTE="$SCRIPT_DIR/note.md"      # set note text file name
+
+
 
 # Main:
 clear
@@ -47,5 +51,6 @@ echo "$note1" >> "$NOTE"
 
 # formatting
 echo "---" >> "$NOTE"
+echo  >> "$NOTE"
 exit 0
 
