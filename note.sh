@@ -23,6 +23,7 @@ DATE=$(date "+## %a %d %b %Y %R")
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" # Resolve script's directory
 FILE="note.md"                  # set file name
 NOTE="$SCRIPT_DIR/$FILE"        # set note text file name
+EDITOR="nano"                   # set text editor
 
 # Main:
 clear
@@ -33,17 +34,20 @@ echo "${g}** ${m}Note ${g}**${reset}"
 echo 
 # Enter title
 read -r -p "${g}Enter Title ${c}> ${reset}" title1
+echo 
 echo "${g}Write your note and save with ${m}Enter${reset}"
 echo 
 # read input with line editor
 echo -ne "$c"
-read -e -r -p "> " note1
+read -e -r -p "> ${reset}" note1
 echo -ne "$reset"
-cat >> "$NOTE" << EOF
-"$DATE  "
-### "$title1"
 
-"$note1"
+cat >> "$NOTE" << EOF
+$DATE
+
+### $title1
+
+$note1
 
 ___
 
