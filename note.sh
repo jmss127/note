@@ -5,8 +5,7 @@
 # free form or field entries
 # searchable with ctrl-f in a text editor.
 # append entries to file.
-# TODO: Use a function for repeating messages?
-# TODO: Add option -r for reading notes
+# TODO: Add search function instead of or as well as -r flag
 
 # Config:
 Color Variables tput
@@ -19,15 +18,26 @@ reset=$(tput sgr0) # Reset
 trap 'echo -e "$reset"; exit 0' INT TERM EXIT
 DATE=$(date "+## %a %d %b %Y %R")
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" # Resolve script's directory
-FILE="note.md"                  # set file name
-NOTE="$SCRIPT_DIR/$FILE"        # set note text file name
-EDITOR="nano"                   # set text editor
+FILE="note.md"                  # set markdown file name
+NOTE="$SCRIPT_DIR/$FILE"        # Script dir and markdown file
+
 
 # Main:
 clear
 if [ ! -f "$NOTE" ]; then
     touch "$NOTE"
 fi
+# getopts -r for read note
+while getopts "r" flag; do
+case ${flag} in
+    r) nano -v "$NOTE"
+        exit 0
+    ;;
+    *) exit 0
+    ;;
+esac
+done
+
 echo "${g}** ${m}Note ${g}**${reset}"
 echo 
 # Enter title
