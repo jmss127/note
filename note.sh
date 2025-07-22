@@ -8,7 +8,7 @@
 
 # Config:
 Color Variables tput
-r=$(tput setaf 1) # Warnings/errors Red
+#r=$(tput setaf 1) # Warnings/errors Red
 g=$(tput setaf 2) # Menus/info/success Green
 c=$(tput setaf 6) # Input prompts Cyan
 m=$(tput setaf 5) # Highlights Magenta
@@ -25,7 +25,6 @@ echo "${g}** ${m}Note ${g}**${reset}"
 echo 
 
 # print date and append to file
-echo -e "# Note"
 echo
 echo -e "$DATE" >> "$NOTE"
 
@@ -33,21 +32,22 @@ echo -e "$DATE" >> "$NOTE"
 read -r -p "${g}Enter Title ${c}> ${reset}" title1
 
 # print title to note
-echo "" >> "$NOTE"
+echo  >> "$NOTE"
 
 echo "### $title1" >> "$NOTE"
 echo 
-echo "${g}Write your note and save with ${m}Enter"
+echo "${g}Write your note and save with ${m}Enter${reset}"
 echo 
 
 # read input with line editor, delimiter set to :
+echo -ne "$c"
 read -e -r -p "> " note1
+echo -ne "$reset"
 
 # append entry note1 to file
 echo "$note1" >> "$NOTE"
 
 # formatting
-echo "" >> "$NOTE"                                 
 echo "---" >> "$NOTE"
 exit 0
 
