@@ -41,7 +41,7 @@ while true; do
     clear
     echo "${g}** ${m}Note ${g}**${reset}"
     echo
-    echo "${g}Write your note and save with ${m}Enter or ${m}CTRL+C${g} to exit${reset}"
+    echo "${g}Write your note and save with ${m}Enter${g} or ${m}CTRL+C${g} to exit${reset}"
     echo
     # read input with line editor
     echo -ne "$c"
