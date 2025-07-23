@@ -18,12 +18,10 @@ Requires `ed`.
 sudo apt update && sudo apt install ed
 ```
 
-
-
 ## Installation
 
 ```bash
-git clone github.com:jmss127/gip.git
+git clone github.com:jmss127/note.git
 ```
 
 ```bash
