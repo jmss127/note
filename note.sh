@@ -5,7 +5,6 @@
 # free form or field entries
 # searchable with ctrl-f in a text editor.
 # append entries to file.
-# TODO: Add search function instead of or as well as -r flag
 
 # Config:
 Color Variables tput
@@ -17,52 +16,44 @@ reset=$(tput sgr0) # Reset
 
 trap 'echo -e "$reset"; exit 0' INT TERM EXIT
 DATE=$(date "+## %a %d %b %Y %R")
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" # Resolve script's directory
-FILE="note.md"                                             # set markdown file name
-NOTE="$SCRIPT_DIR/$FILE"                                   # Script dir and markdown file
+SCR_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" # Resolve script's directory
+FILE="note.md"                                          # set markdown file name
+NOTE="$SCR_DIR/$FILE"                                   # Script dir and markdown file
 
 # Main:
-if [ ! -f "$NOTE" ]; then
-    touch "$NOTE"
-fi
+[ ! -f "$NOTE" ] && touch "$NOTE"
 # getopts -r for read note
 while getopts "r" flag; do
     case ${flag} in
-    r)
-        nano -v "$NOTE"
-        exit 0
-        ;;
-    *)
-        exit 0
-        ;;
+    r) nano -v "$NOTE"; exit 0; ;;
+    *) exit 0 ;;
     esac
 done
 while true; do
     clear
     echo "${g}** ${m}Note ${g}**${reset}"
     echo
-    echo "${g}Write your note and save with ${m}Enter${g} or ${m}CTRL+C${g} to exit${reset}"
+    echo "${g}Write your note and save with ${m}Ctrl+D${g} on a new line or ${m}Ctrl+C${g} to exit${reset}"
     echo
     # read input with line editor
-    echo -ne "$c"
-    read -e -r -p "> ${reset}" note1
+    echo -ne "$c> ${reset}"
+    note_in=$(cat) # capture multiline input
     echo -e "$reset"
-    
     # Extract title from first three words
-    title1=$(echo "$note1" | head -n 1 | grep -o "^\S\+\s\+\S\+\s\+\S\+")
-    if [ -z "$title1" ]; then
-        title1="Untitled"
-    fi
-    # Print to markdown file.
-    cat >>"$NOTE" <<EOF
+    title=$(echo "$note_in" | head -n 1 | grep -o "^\S\+\s\+\S\+\s\+\S\+" || echo "Untitled")
+    # Append to file using ed
+    ed -s "$NOTE" <<EOF
+\$a
 $DATE
 
-### $title1
+### $title
 
-$note1
+$note_in
 
 ___
-
+.
+w
+q
 EOF
 done
 exit 0
