@@ -9,7 +9,7 @@
 
 # Config:
 Color Variables tput
-r=$(tput setaf 1) # Warnings/errors Red
+# r=$(tput setaf 1) # Warnings/errors Red
 g=$(tput setaf 2)  # Menus/info/success Green
 c=$(tput setaf 6)  # Input prompts Cyan
 m=$(tput setaf 5)  # Highlights Magenta
@@ -41,16 +41,19 @@ while true; do
     clear
     echo "${g}** ${m}Note ${g}**${reset}"
     echo
-    # Enter title
-    read -r -p "${g}Enter Title or ${m}CTRL+C${g} to exit ${c}> ${reset}" title1
-    echo
-    echo "${g}Write your note and save with ${m}Enter${reset}"
+    echo "${g}Write your note and save with ${m}Enter or ${m}CTRL+C${g} to exit${reset}"
     echo
     # read input with line editor
     echo -ne "$c"
     read -e -r -p "> ${reset}" note1
     echo -e "$reset"
-
+    
+    # Extract title from first three words
+    title1=$(echo "$note1" | head -n 1 | grep -o "^\S\+\s\+\S\+\s\+\S\+")
+    if [ -z "$title1" ]; then
+        title1="Untitled"
+    fi
+    # Print to markdown file.
     cat >>"$NOTE" <<EOF
 $DATE
 
