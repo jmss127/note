@@ -8,14 +8,18 @@
 
 - Notes are time stamped, and titles extracted from the content of the note.
 
-- Notes can be read by `note -r`
+- Notes can be read by `note -r` which invokes nano in read-only mode.
+
+- Notes can be searched with `note -s` which invokes bat for paging.
+
+- A short help menu can be accessed with `note -h`.
 
 ## Dependencies
 
-Requires `ed`.
+Requires `ed` and `bat`, check your distribution for bat.
 
 ```bash
-sudo apt update && sudo apt install ed
+sudo apt update && sudo apt install ed bat
 ```
 
 ## Installation
