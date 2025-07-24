@@ -32,7 +32,7 @@ while getopts "hrs:" flag; do
     s) awk -v w="${OPTARG}" '
         /^##/ {record=""; inblock=1}
         /^___/ {inblock=0; if (record ~ w) print record}
-        inblock {record = record $0 "\n"}' "$FILE" | batcat --file-name "$NOTE"
+        inblock {record = record $0 "\n"}' "$NOTE" | batcat --file-name "$NOTE"
         exit 0; ;; 
     *) exit 0; ;;
     esac
