@@ -23,8 +23,10 @@ NOTE="$SCR_DIR/$FILE"                                   # Script dir and markdow
 # Main:
 [ ! -f "$NOTE" ] && touch "$NOTE"
 # getopts -r for read note, s: for searching
-while getopts "rs:" flag; do
+while getopts "hrs:" flag; do
     case ${flag} in
+    h) printf "Note Options:\n-h List of options.\n-r read Note record in editor.\n-s Search for records."
+        exit 0; ;;
     r) nano -v "$NOTE"; exit 0; ;;
     # Select a suitable pager here.
     s) awk -v w="${OPTARG}" '
