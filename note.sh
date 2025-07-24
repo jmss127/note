@@ -25,16 +25,24 @@ NOTE="$SCR_DIR/$FILE"                                   # Script dir and markdow
 # getopts -r for read note, s: for searching
 while getopts "hrs:" flag; do
     case ${flag} in
-    h) printf "Note Options:\n-h List of options.\n-r read Note record in editor.\n-s Search for records."
-        exit 0; ;;
-    r) nano -v "$NOTE"; exit 0; ;;
+    h)
+        printf "Note Options:\n-h List of options.\n-r read Note record in editor.\n-s Search for records."
+        exit 0
+        ;;
+    r)
+        nano -v "$NOTE"
+        exit 0
+        ;;
     # Select a suitable pager here.
-    s) awk -v w="${OPTARG}" '
+    s)
+        clear
+        awk -v w="${OPTARG}" '
         /^##/ {record=""; inblock=1}
         /^___/ {inblock=0; if (record ~ w) print record}
         inblock {record = record $0 "\n"}' "$NOTE" | batcat --file-name "$NOTE"
-        exit 0; ;; 
-    *) exit 0; ;;
+        exit 0
+        ;;
+    *) exit 0 ;;
     esac
 done
 while true; do
