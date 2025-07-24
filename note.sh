@@ -26,7 +26,7 @@ NOTE="$SCR_DIR/$FILE"                                   # Script dir and markdow
 while getopts "hrs:" flag; do
     case ${flag} in
     h)
-        printf "Note Options:\n-h List of options.\n-r read Note record in editor.\n-s Search for records."
+        printf "Note Options:\n-h List of options.\n-r read Note record in editor.\n-s <TERM> Search for records."
         exit 0
         ;;
     r)
